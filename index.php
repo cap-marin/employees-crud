@@ -14,10 +14,10 @@ $employee = $sql_query->fetchAll(PDO::FETCH_OBJ);
 ?>
 
 
-<div class="container mt-5">
+<div class="container p-5">
     <div class="row justify-content-center">
 
-        <div class="col-md-8">
+        <div class="col-md-10">
             <?php
             if (isset($_GET['errorcod']) && $_GET['errorcod'] == 'true') {
             ?>
@@ -39,13 +39,35 @@ $employee = $sql_query->fetchAll(PDO::FETCH_OBJ);
             <?php
             }
             ?>
+
+            <?php
+            if (isset($_GET['dropped'])) {
+            ?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
+                    Empleado eliminado.
+                </div>
+            <?php
+            }
+            ?>
+
+            <?php
+            if (isset($_GET['registrado'])) {
+            ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
+                    Registro exitoso.
+                </div>
+            <?php
+            }
+            ?>
             <div class="card">
                 <div class="card-header">
                     Lista de Empleados
                 </div>
 
                 <div class="card-body text-right">
-                    <a href="#" class="btn btn-primary"><i class="bi bi-person-plus-fill"></i> Crear</a>
+                    <a href="crear.php" class="btn btn-primary"><i class="bi bi-person-plus-fill"></i> Crear</a>
                 </div>
 
                 <div class="p-2">
@@ -72,9 +94,9 @@ $employee = $sql_query->fetchAll(PDO::FETCH_OBJ);
                                     <td><?php echo $emp->sexo; ?></td>
                                     <td><?php echo $emp->nom_area; ?></td>
                                     <td class="text-center"><?php echo $emp->boletin; ?></td>
-                                    <td class="text-success text-center"><a href="editar.php?codigo=<?php echo $emp->id; ?>"><i class="bi bi-pencil-square"></i></a></td>
-                                    <td class="text-success text-center"><a href="eliminar.php?codigo=<?php echo $emp->id; ?>"><i class="bi bi-trash3"></i></a></td>
-                                    
+                                    <td><a class="text-success text-center" href="editar.php?codigo=<?php echo $emp->id; ?>"><i class="bi bi-pencil-square"></i></a></td>
+                                    <td><a onclick="return confirm('Estás seguro de eliminar?');" class="text-danger text-center" href="eliminar.php?codigo=<?php echo $emp->id; ?>"><i class="bi bi-trash3"></i></a></td>
+
                                 </tr>
                             <?php
                             }
@@ -82,77 +104,6 @@ $employee = $sql_query->fetchAll(PDO::FETCH_OBJ);
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    Crear Empleado
-                </div>
-                <!-- Alerts!-->
-                <?php
-                if (isset($_GET['mensaje'])) {
-                ?>
-                    <div class="alert alert-info alert-dismissible fade show" role="alert">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
-                        Los campos con asteriscos (*) son obligatorios.
-                    </div>
-                <?php
-                }
-                ?>
-
-                <?php
-                if (isset($_GET['registrado'])) {
-                ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
-                        Registro exitoso.
-                    </div>
-                <?php
-                }
-                ?>
-
-                <?php
-                if (isset($_GET['error'])) {
-                ?>
-                    <div class="alert alert-info alert-dismissible fade show" role="alert">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
-                        Error.
-                    </div>
-                <?php
-                }
-                ?>
-                <!-- Alerts!-->
-                <form class="p-4" method="POST" action="register.php">
-                    <div class="mb-3">
-                        <label class="form-label">Nombre completo* </label>
-                        <input type="text" class="form-control" name="txtNombre" autofocus required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Correo electrónico* </label>
-                        <input type="email" class="form-control" name="email" autofocus required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Sexo* </label>
-                        <input type="text" class="form-control" name="txtSexo" autofocus required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Área* </label>
-                        <input type="text" class="form-control" name="txtArea" autofocus required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Descripción* </label>
-                        <input type="text" class="form-control" name="txtDes" autofocus required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Roles* </label>
-                        <input type="text" class="form-control" name="txtRol" autofocus>
-                    </div>
-                    <div class="mb-2">
-                        <input type="hidden" name="oculto" value="1">
-                        <input type="submit" class="btn btn-primary" value="Guardar">
-                    </div>
-                </form>
             </div>
         </div>
     </div>
