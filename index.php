@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL ^ E_NOTICE);
 include 'template/header.php';
 include_once 'model/conexion.php';
 $sql_query = $bd->query("SELECT emp.id, emp.nombre as nom, emp.email, 
@@ -22,7 +23,7 @@ $employee = $sql_query->fetchAll(PDO::FETCH_OBJ);
                 </div>
 
                 <div class="card-body text-right">
-                <a href="#" class="btn btn-primary"><i class="person-add"></i>Crear</a>
+                    <a href="#" class="btn btn-primary"><i class="person-add"></i>Crear</a>
                 </div>
 
                 <div class="p-2">
@@ -65,7 +66,41 @@ $employee = $sql_query->fetchAll(PDO::FETCH_OBJ);
                 <div class="card-header">
                     Crear Empleado
                 </div>
-                <form action="" class="p-4" method="POST" action="register.php">
+                <!-- Alerts!-->
+                <?php
+                if (isset($_GET['mensaje'])) {
+                ?>
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
+                        Los campos con asteriscos (*) son obligatorios.
+                    </div>
+                <?php
+                }
+                ?>
+
+                <?php
+                if (isset($_GET['registrado'])) {
+                ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
+                        Registro exitoso.
+                    </div>
+                <?php
+                }
+                ?>
+
+                <?php
+                if (isset($_GET['error'])) {
+                ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
+                        Registro exitoso.
+                    </div>
+                <?php
+                }
+                ?>
+                <!-- Alerts!-->
+                <form class="p-4" method="POST" action="register.php">
                     <div class="mb-3">
                         <label class="form-label">Nombre completo* </label>
                         <input type="text" class="form-control" name="txtNombre" autofocus>
