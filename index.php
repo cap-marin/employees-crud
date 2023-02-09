@@ -1,12 +1,104 @@
 <?php
 include 'template/header.php';
-include 'template/footer.php';
+include_once 'model/conexion.php';
+$sql_query = $bd->query("SELECT emp.id, emp.nombre as nom, emp.email, 
+CASE WHEN emp.sexo = 'F' THEN 'Femenino' WHEN emp.sexo = 'M' THEN 'Masculino' END as sexo,
+ar.nombre as nom_area, 
+CASE WHEN emp.boletin = '1' THEN 'Sí' WHEN emp.boletin = '0' THEN 'No' END as boletin
+FROM `empleado` as emp
+LEFT JOIN areas as ar on (emp.area_id = ar.id)");
+$employee = $sql_query->fetchAll(PDO::FETCH_OBJ);
+//print_r($employee);
+
 ?>
-    
-    
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
-</body>
 
-</html>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-header">
+                    Lista de Empleados
+                </div>
+
+                <div class="card-body text-right">
+                <a href="#" class="btn btn-primary"><i class="person-add"></i>Crear</a>
+                </div>
+
+                <div class="p-2">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Sexo</th>
+                                <th scope="col">Área</th>
+                                <th scope="col">Boletín</th>
+                                <th scope="col">Modificar</th>
+                                <th scope="col">Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($employee as $emp) {
+
+                            ?>
+                                <tr>
+                                    <td scope="row"><?php echo $emp->nom; ?></td>
+                                    <td><?php echo $emp->email; ?></td>
+                                    <td><?php echo $emp->sexo; ?></td>
+                                    <td><?php echo $emp->nom_area; ?></td>
+                                    <td><?php echo $emp->boletin; ?></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    Crear Empleado
+                </div>
+                <form action="" class="p-4" method="POST" action="register.php">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre completo* </label>
+                        <input type="text" class="form-control" name="txtNombre" autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Correo electrónico* </label>
+                        <input type="email" class="form-control" name="email" autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Sexo* </label>
+                        <input type="text" class="form-control" name="txtSexo" autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Área* </label>
+                        <input type="text" class="form-control" name="txtArea" autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descripción* </label>
+                        <input type="text" class="form-control" name="txtDes" autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Roles* </label>
+                        <input type="text" class="form-control" name="txtRol" autofocus>
+                    </div>
+                    <div class="mb-2">
+                        <input type="hidden" name="oculto" value="1">
+                        <input type="submit" class="btn btn-primary" value="Guardar">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php include 'template/footer.php';
+?>

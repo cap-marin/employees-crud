@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-md">
                     <header class="py-3">
-                        <h3 class="text-center" >Lista de Empleados</h3>
+                        <h3 class="text-center" >Empleados</h3>
                     </header>
             </div>
         </div>
