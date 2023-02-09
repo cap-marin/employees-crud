@@ -1,7 +1,7 @@
 <footer class="container-fluid bg-dark fixed-bottom">
     <div class="row">
         <div class="col-md text-light text-center py-3">
-            Developed by Steph Marin
+            Developed by <a class="text-secondary" href="https://github.com/cap-marin/employees-crud.git">Steph Marin</a>
         </div>
     </div>
 </footer>

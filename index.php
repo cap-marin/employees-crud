@@ -6,7 +6,7 @@ $sql_query = $bd->query("SELECT emp.id, emp.nombre as nom, emp.email,
 CASE WHEN emp.sexo = 'F' THEN 'Femenino' WHEN emp.sexo = 'M' THEN 'Masculino' END as sexo,
 ar.nombre as nom_area, 
 CASE WHEN emp.boletin = '1' THEN 'Sí' WHEN emp.boletin = '0' THEN 'No' END as boletin
-FROM `empleado` as emp
+FROM empleado as emp
 LEFT JOIN areas as ar on (emp.area_id = ar.id)");
 $employee = $sql_query->fetchAll(PDO::FETCH_OBJ);
 //print_r($employee);
@@ -94,8 +94,8 @@ $employee = $sql_query->fetchAll(PDO::FETCH_OBJ);
                                     <td><?php echo $emp->sexo; ?></td>
                                     <td><?php echo $emp->nom_area; ?></td>
                                     <td class="text-center"><?php echo $emp->boletin; ?></td>
-                                    <td><a class="text-success text-center" href="editar.php?codigo=<?php echo $emp->id; ?>"><i class="bi bi-pencil-square"></i></a></td>
-                                    <td><a onclick="return confirm('Estás seguro de eliminar?');" class="text-danger text-center" href="eliminar.php?codigo=<?php echo $emp->id; ?>"><i class="bi bi-trash3"></i></a></td>
+                                    <td class="text-center"><a class="text-success" href="editar.php?codigo=<?php echo $emp->id; ?>"><i class="bi bi-pencil-square"></i></a></td>
+                                    <td class="text-center"><a onclick="return confirm('Estás seguro de eliminar?');" class="text-danger" href="eliminar.php?codigo=<?php echo $emp->id; ?>"><i class="bi bi-trash3"></i></a></td>
 
                                 </tr>
                             <?php
