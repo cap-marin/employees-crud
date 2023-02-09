@@ -16,7 +16,29 @@ $employee = $sql_query->fetchAll(PDO::FETCH_OBJ);
 
 <div class="container mt-5">
     <div class="row justify-content-center">
+
         <div class="col-md-8">
+            <?php
+            if (isset($_GET['errorcod']) && $_GET['errorcod'] == 'true') {
+            ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
+                    Vuelve a intentar.
+                </div>
+            <?php
+            }
+            ?>
+
+            <?php
+            if (isset($_GET['editado'])) {
+            ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
+                    Actualización exitosa.
+                </div>
+            <?php
+            }
+            ?>
             <div class="card">
                 <div class="card-header">
                     Lista de Empleados
@@ -49,9 +71,10 @@ $employee = $sql_query->fetchAll(PDO::FETCH_OBJ);
                                     <td><?php echo $emp->email; ?></td>
                                     <td><?php echo $emp->sexo; ?></td>
                                     <td><?php echo $emp->nom_area; ?></td>
-                                    <td><?php echo $emp->boletin; ?></td>
-                                    <td><i class="bi bi-pencil-square"></i></td>
-                                    <td><i class="bi bi-trash3"></i></td>
+                                    <td class="text-center"><?php echo $emp->boletin; ?></td>
+                                    <td class="text-success text-center"><a href="editar.php?codigo=<?php echo $emp->id; ?>"><i class="bi bi-pencil-square"></i></a></td>
+                                    <td class="text-success text-center"><a href="eliminar.php?codigo=<?php echo $emp->id; ?>"><i class="bi bi-trash3"></i></a></td>
+                                    
                                 </tr>
                             <?php
                             }
